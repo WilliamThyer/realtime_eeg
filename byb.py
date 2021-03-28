@@ -31,9 +31,6 @@ display_size = 30000 #3 seconds
 sample_buffer = np.linspace(0,0,display_size)
 serial_port = serial.Serial(port, baud, timeout=0)
 
-
-
-
 def checkIfNextByteExist():
         global cBufTail
         global input_buffer
@@ -43,7 +40,6 @@ def checkIfNextByteExist():
             return False
         return True
     
-
 def checkIfHaveWholeFrame():
         global cBufTail
         global input_buffer
@@ -113,9 +109,7 @@ def handle_data(data):
                             #something is wrong with this frame
                             break #continue as if we have new frame
             
-
-                        sample_buffer = np.append(sample_buffer,writeInteger-512)
-                        
+                        sample_buffer = np.append(sample_buffer,writeInteger-512)            
 
                         if areWeAtTheEndOfFrame():
                             break
@@ -130,7 +124,6 @@ def handle_data(data):
             if cBufTail==len(input_buffer):
                 haveData = False
                 break
-
 
 def read_from_port(ser):
     global connected
@@ -155,6 +148,7 @@ def read_from_port(ser):
 thread = threading.Thread(target=read_from_port, args=(serial_port,))
 thread.start()
 xi = np.linspace(-display_size/sample_rate, 0, num=display_size)
+
 while True:
     plt.ion()
     plt.show(block=False)
@@ -167,6 +161,7 @@ while True:
         plt.clf()      
 
         plt.ylim(-550, 550)
-        plt.plot(xi, yi, linewidth=1, color='royalblue')
+        # plt.plot(xi, yi, linewidth=1, color='royalblue')
+        print(yi.shape)
         plt.pause(0.001)
         time.sleep(0.08)
