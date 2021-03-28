@@ -1,3 +1,8 @@
+"""
+Runs PsychoPy script which cycles through mental states each block. 
+Every trial generates a tone which indicates the user should start thinking about the target state for that block.
+"""
+
 from psychopy import core, visual, sound, event
 
 class ToneGenerator:
